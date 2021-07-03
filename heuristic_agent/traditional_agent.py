@@ -188,7 +188,7 @@ class TraditionalAgent:
             score = -self._minimax(board, -beta, -alpha, depthleft - 1)
             board.pop()
             if score >= beta:
-                return score
+                return beta
             if score > bestscore:
                 bestscore = score
                 if score > alpha:

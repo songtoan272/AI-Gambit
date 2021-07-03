@@ -1,12 +1,11 @@
-import numpy as np
-import chess
+# import chess
 
-from heuristic_agent.board import ChessBoard
+from heuristic_agent.board import *
 
 INF = 100000
 
 
-class Evaluator(object):
+class Evaluator:
     """
     Evaluate the board position and return the advantage of the side to move.
     """
@@ -79,7 +78,7 @@ class Evaluator(object):
                 -50, -40, -30, -20, -20, -30, -40, -50]
         }
 
-    def evaluate(self, board: ChessBoard):
+    def evaluate_white(self, board: ChessBoard) -> int:
         """
         Return the evaluation of the board in regard with the player turn
         :param board:
@@ -89,10 +88,7 @@ class Evaluator(object):
         if board.end is not None:
             result = board.end
             if result != 0:
-                if (board.end == 1 and board.turn) or (board.end == -1 and not board.turn):
-                    return INF
-                else:
-                    return -INF
+                return INF * result
             else:
                 return 0
 
@@ -145,6 +141,10 @@ class Evaluator(object):
                      sum([-self.pstable['KM'][chess.square_mirror(i)] for i in board.pieces(chess.KING, chess.BLACK)])
 
         eval = material + pawnsq + knightsq + bishopsq + rooksq + queensq + kingsq
+        return eval
+
+    def evaluate(self, board: ChessBoard):
+        eval = self.evaluate_white(board)
         return eval if board.turn else -eval
 
 if __name__ == "__main__":
