@@ -1,11 +1,9 @@
-import time
-from collections import defaultdict
 from typing import Tuple, List
 
 import chess
 
-from heuristic_agent.board import ChessBoard
-from heuristic_agent.evaluate import INF
+from heuristic_agent.env.board import ChessBoard
+from heuristic_agent.env.eval import INF
 from heuristic_agent.engines.greedy import GreedyEngine
 
 

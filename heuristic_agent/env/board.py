@@ -7,6 +7,7 @@ from chess.polyglot import zobrist_hash
 class ChessBoard(chess.Board):
     def __init__(self, *args):
         super().__init__(*args)
+        self.score = 0
 
     @property
     def moves(self) -> List[chess.Move]:
@@ -27,8 +28,8 @@ class ChessBoard(chess.Board):
         return b
 
     @property
-    def end(self):
-        result = self.result(claim_draw=True)
+    def end(self, claim_draw=False):
+        result = self.result(claim_draw=claim_draw)
         if result == '1-0':
             return 1
         elif result == '0-1':

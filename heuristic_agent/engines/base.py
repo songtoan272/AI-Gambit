@@ -36,5 +36,9 @@ class Engine(object):
         ctx['nps'] = nps
         ctx['score'] = score
         ctx['time'] = t
-
+        print(self.__str__())
         print(self.FORMAT_STAT.format(**ctx))
+
+    @property
+    def stats(self):
+        return self._counters.copy()

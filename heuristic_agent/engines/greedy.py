@@ -1,8 +1,8 @@
 import chess
 
-from heuristic_agent.board import ChessBoard
+from heuristic_agent.env.board import ChessBoard
 from heuristic_agent.engines.base import Engine
-from heuristic_agent.evaluate import Evaluator, INF
+from heuristic_agent.env.eval import INF, evaluate
 
 
 class GreedyEngine(Engine):
@@ -12,8 +12,7 @@ class GreedyEngine(Engine):
     the greedy Minimax engine can be implemented in a negamax way
     """
     def __init__(self):
-        self._evaluator = Evaluator()
-        self.evaluate = self._evaluator.evaluate
+        self.evaluate = evaluate
 
     def choose(self, board: ChessBoard):
         bestmove = chess.Move.null()

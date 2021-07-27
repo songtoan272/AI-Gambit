@@ -1,11 +1,11 @@
 from collections import namedtuple, OrderedDict
 from enum import Enum
-from typing import List, Tuple
+from typing import Tuple
 
 import chess
 
-from heuristic_agent.board import ChessBoard
-from heuristic_agent.evaluate import INF
+from heuristic_agent.env.board import ChessBoard
+from heuristic_agent.env.eval import INF
 import pickle
 
 Entry = namedtuple('Entry', 'move depth score flag')
@@ -26,7 +26,7 @@ class TranspositionTable:
 
     def put(self,
             board: ChessBoard,
-            moves: List[chess.Move],
+            move: chess.Move,
             depth: int,
             ply: int,
             score: int,
@@ -35,19 +35,16 @@ class TranspositionTable:
         """
         Put an search entry into the transition table
         :param board: The board to insert into the table
-        :param moves: The moves on PV-Nodes
+        :param move: The move on PV-Nodes to take from this position
         :param depth: the depth searched for this node
         :param score: The returned score of this node
         :param alpha: The lowerbound for this node
         :param beta: The upperbound for this node
         :return:
         """
+        if move is None:
+            return
         key = board.hashkey
-        if moves:
-            move = moves[0]
-        else:
-            move = None
-
         if depth == 0 or alpha < score < beta:
             flag = Flag.EXACT
         elif score >= beta:
@@ -62,6 +59,7 @@ class TranspositionTable:
         entry = Entry(move, depth, score, flag)
         old_entry = self._cache.get(key, None)
         if not old_entry or old_entry.depth < entry.depth:
+            self._cache.pop(key, None)
             self._cache[key] = entry
 
         if len(self._cache) > self._maxitems:
@@ -104,7 +102,7 @@ class TranspositionTable:
 
 if __name__=="__main__":
     tt = TranspositionTable()
-    tt.put(ChessBoard(), [chess.Move.null()], 0, 1, 0)
+    tt.put(ChessBoard(), chess.Move.null(), 0, 1, 0)
     p = pickle.dumps(tt)
     load_tt = pickle.loads(p)
     print(load_tt.lookup(ChessBoard(), 1, 0))

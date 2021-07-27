@@ -2,3 +2,5 @@
 ./.ipynb_checkpoints
 ./heuristic_agent/__pycache__
 *.pyc
+./heuristic_agent/traditional_agent.py
+./heuristic_agent/engines/__pycache__

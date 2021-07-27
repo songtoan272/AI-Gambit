@@ -1,5 +1,6 @@
-from heuristic_agent.engines import GreedyEngine, Engine
-from heuristic_agent.evaluate import Evaluator, ChessBoard, INF
+from heuristic_agent.engines.base import Engine
+from heuristic_agent.env.eval import evaluate_white, INF
+from heuristic_agent.env.board import ChessBoard
 
 
 class MinimaxEngine(Engine):
@@ -10,8 +11,7 @@ class MinimaxEngine(Engine):
 
     def __init__(self, max_depth):
         self._maxdepth = max_depth
-        self._evaluator = Evaluator()
-        self.evaluate = self._evaluator.evaluate_white
+        self.evaluate = evaluate_white
 
     def min_level(self, board: ChessBoard, depth: int):
         self.inc('nodes')

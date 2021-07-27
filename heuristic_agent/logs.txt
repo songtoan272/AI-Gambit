@@ -1,0 +1,16 @@
+depth=4 old move ordering
+    alpha beta:
+        score: -60 [time: 28.916s, pv: d3b5, f6d7, d2d3, e7e5]
+        nps: 996.2719639735778, nodes: 28808, betacuts: 2720
+        leaves: 25787, draws: 0, mates: 0
+        score: -25 [time: 22.139s, pv: c8d7, d1b3, f6g8, b3f7]
+        nps: 1056.4023569518147, nodes: 23388, betacuts: 2555
+        leaves: 20420, draws: 0, mates: 0
+    alpha beta tt:
+        score: -60 [time: 55.424s, pv: d3b5, f6d7, d2d3, e7e5]
+        nps: 209.17037819387036, nodes: 11593, betacuts: 2512
+        hits: 1348, leaves: 8726, draws: 0, mates: 0
+        score: 50 [time: 59.529s, pv: c8e6, b2b4, c5b4, c3b4]
+        nps: 193.93938974497334, nodes: 11545, betacuts: 2724
+        hits: 1964, leaves: 8495, draws: 0, mates: 0
+
