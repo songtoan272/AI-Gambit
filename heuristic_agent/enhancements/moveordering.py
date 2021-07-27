@@ -53,9 +53,9 @@ class MoveOrdering(object):
     def _order_cache(self, board: ChessBoard, ply: int):
         ttEntry = None if self._tt is None else self._tt.retrieve(board)
         hash_move = None if not ttEntry else ttEntry.move
-        captures, non_captures = self._categorize_moves(board, hash_move)
-        captures = self._sort_mvv_lva(board, captures)
-        non_captures = self._sort_killer_moves(non_captures, ply)
+        captures, non_captures = self.categorize_moves(board, hash_move)
+        captures = self.sort_mvv_lva(board, captures)
+        non_captures = self.sort_killer_moves(non_captures, ply)
         if hash_move:
             return [hash_move] + captures + non_captures
         else:
@@ -65,7 +65,7 @@ class MoveOrdering(object):
     def order(self, board, ply=0) -> List[Move]:
         return self._order(board, ply=ply)
 
-    def _categorize_moves(self, board: ChessBoard, hash_move: Move):
+    def categorize_moves(self, board: ChessBoard, hash_move: Move):
         """
         Sort legal moves in order PV-Move - Hash Move -> captures -> non-captures
         :param hash_move:
@@ -83,7 +83,7 @@ class MoveOrdering(object):
         return captures, non_captures
 
 
-    def _sort_mvv_lva(self, board: ChessBoard, capture_moves: List[Move]):
+    def sort_mvv_lva(self, board: ChessBoard, capture_moves: List[Move]):
         MVV_LVA_SCORE = [
             [0, 0, 0, 0, 0, 0, 0],          #victim None, attacker K, Q, R, B, N, P, None
             [10, 11, 12, 13, 14, 15, 0],    #victim P, attacker K, Q, R, B, N, P, None
@@ -103,7 +103,7 @@ class MoveOrdering(object):
                     res[m] = MVV_LVA_SCORE[board.piece_at(victim).piece_type][board.piece_at(m.from_square).piece_type]
         return sorted(res, key=res.get, reverse=True)
 
-    def _sort_killer_moves(self, non_captures: List[Move], ply: int):
+    def sort_killer_moves(self, non_captures: List[Move], ply: int):
         killers = []
         non_killers = []
         for i in range(len(non_captures)):

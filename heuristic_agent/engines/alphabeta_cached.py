@@ -87,4 +87,4 @@ class ABCachedEngine(AlphaBetaEngine):
             return bestmove, bestscore
 
     def __str__(self):
-        return 'AlphaBetaCache(%s)' % self._maxdepth
+        return 'AlphaBetaCache(depth=%s)' % self._maxdepth

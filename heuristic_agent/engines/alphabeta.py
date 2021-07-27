@@ -63,20 +63,19 @@ class AlphaBetaEngine(NegamaxEngine):
             return beta
         if alpha < stand_pat:
             alpha = stand_pat
-
-        for move in board.moves:
-            if board.is_capture(move):
-                board.push(move)
-                score = -self.quiesce(board, -beta, -alpha)
-                board.pop()
-                if score >= beta:
-                    return beta
-                if score > alpha:
-                    alpha = score
+        captures = self.moveorder.sort_mvv_lva(board, [m for m in board.moves if board.is_capture(m)])
+        for move in captures:
+            board.push(move)
+            score = -self.quiesce(board, -beta, -alpha)
+            board.pop()
+            if score >= beta:
+                return beta
+            if score > alpha:
+                alpha = score
         return alpha
 
     def __str__(self):
-        return 'AlphaBeta(%s)' % self._maxdepth
+        return 'AlphaBeta(depth=%s)' % self._maxdepth
 
 
 

@@ -74,10 +74,10 @@ pstable = {
         -50, -40, -30, -20, -20, -30, -40, -50]
 }
 
-score_diff_mid_kingside_castling = -pstable['KM'][chess.E4] - pstable['R'][chess.H1] + pstable['KM'][chess.G1] + pstable['R'][chess.F1]
-score_diff_mid_queenside_castling = -pstable['KM'][chess.E4] - pstable['R'][chess.A1] + pstable['KM'][chess.C1] + pstable['R'][chess.D1]
-score_diff_end_kingside_castling = -pstable['KE'][chess.E4] - pstable['R'][chess.H1] + pstable['KE'][chess.G1] + pstable['R'][chess.F1]
-score_diff_end_queenside_castling = -pstable['KE'][chess.E4] - pstable['R'][chess.A1] + pstable['KE'][chess.C1] + pstable['R'][chess.D1]
+score_diff_mid_kingside_castling = -pstable['KM'][chess.E1] - pstable['R'][chess.H1] + pstable['KM'][chess.G1] + pstable['R'][chess.F1]
+score_diff_mid_queenside_castling = -pstable['KM'][chess.E1] - pstable['R'][chess.A1] + pstable['KM'][chess.C1] + pstable['R'][chess.D1]
+score_diff_end_kingside_castling = -pstable['KE'][chess.E1] - pstable['R'][chess.H1] + pstable['KE'][chess.G1] + pstable['R'][chess.F1]
+score_diff_end_queenside_castling = -pstable['KE'][chess.E1] - pstable['R'][chess.A1] + pstable['KE'][chess.C1] + pstable['R'][chess.D1]
 
 
 
@@ -154,12 +154,29 @@ def evaluate(board: ChessBoard):
     return eval
 
 
-def eval_from_move(board: ChessBoard, move: Move):
-    move_piece = board.piece_at(move.from_square).symbol()
-    if board.is_capture(move):
-        if board.is_en_passant(move):
-            victim_sq = board.ep_square + 8 if not board.turn else board.ep_square - 8
-            victim_piece = board.piece_at(victim_sq).symbol()
+# def eval_from_move(board: ChessBoard, move: Move):
+#     """
+#     Evaluate the board score after playing the move.
+#     This function has side-effect, the move stack of the board is updated after this function as we push the new move into it
+#     :param board:
+#     :param move:
+#     :return:
+#     """
+#     if board.turn:
+#         move_piece = board.piece_at(move.from_square).symbol()
+#         if board.is_capture(move):
+#             if board.is_en_passant(move):
+#                 victim_sq = board.ep_square + 8 if not board.turn else board.ep_square - 8
+#                 victim_piece = board.piece_at(victim_sq).symbol()
+#             else:
+#                 victim_sq = move.to_square
+#                 victim_piece = board.piece_at(move.to_square).symbol()
+#             diff_val = -pstable[move_piece][move.from_square] + pstable[move_piece][move.to_square] \
+#                 + pstable[victim_piece.upper()][chess.square_mirror(victim_sq)] + pieces[victim_piece.upper()]
+#         else:
+#             if board.is_kingside_castling(move):
+#
+
 
 
 

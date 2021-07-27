@@ -21,4 +21,4 @@ class ABIterDeepEngine(ABCachedEngine):
             yield pv[0]
 
     def __str__(self):
-        return 'ABIterativeDeepening(%s)' % self._maxdepth
+        return 'ABIterativeDeepening(max_depth=%s)' % self._maxdepth

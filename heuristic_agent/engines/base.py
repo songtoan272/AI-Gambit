@@ -31,7 +31,7 @@ class Engine(object):
 
         pv: str = ', '.join(x.uci() for x in pv)
 
-        ctx = self._counters.copy()
+        ctx = self._counters
         ctx['pv'] = pv
         ctx['nps'] = nps
         ctx['score'] = score
